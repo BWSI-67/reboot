@@ -1,0 +1,15 @@
+Quest Log - Day 1 Overview
+
+- Main goal: begin full Quest Log project
+- New four-person final team
+- Team introductions and discussion of strengths and weaknesses
+- Initial approach and responsibilities discussed
+- Shared Google Drive and project folders created
+- Group GitHub repository created
+- First lab: line follower
+- Expected Week 1 topics: line following and wall following
+- Later Quest Log topics identified: machine-learning sign detection and SLAM
+- Testing plan: prepare line-follower code, connect to the RACECAR, test on the course, observe behavior, and adjust the controller
+- Work completed: team and project organization; preparation for first lab
+- Physical test results: none collected on Day 1
+- Next step: begin implementing and testing the line follower

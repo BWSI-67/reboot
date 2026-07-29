@@ -1,0 +1,13 @@
+Quest Log - Day 3 Overview
+
+- Main topic: filters and real-world sensor/environmental noise
+- Goal: reduce effects of noise, disturbances, and small disruptions
+- Planned work: implement filtering concepts into current RACECAR projects
+- Project focus: resume coding and prepare for first scheduled lab test
+- Team process: review incomplete work, divide tasks, and prepare code for testing
+- Main difficulties: high stress, communication disagreements, and inconsistent teamwork
+- Code concern: AI-generated code used without complete team understanding
+- Testing issue: limited coordination during preparation and lab time
+- Result: individual progress made, but team workflow and testing efficiency reduced
+- Lesson learned: every team member should understand and be able to explain the code
+- Next steps: restore team norms, review all code together, implement filters, and improve preparation for the next test
