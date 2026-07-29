@@ -1,0 +1,32 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+build/
+install/
+log/
+
+# macOS
+.DS_Store
+.AppleDouble
+._*
+
+# editors / agents
+.claude/
+.vscode/
+*.swp
+
+# runtime output
+*.log
+calib_results.json
+bags/
+
+# kept locally, intentionally NOT in this repo for now
+# (.gitignore has no inline comments -- keep patterns on their own lines)
+# car/   = racing stack (rc-API controller + deploy wrapper)
+# tools/ = deploy/ops scripts + the Unity track pipeline
+car/
+tools/
+
+# staged for deletion, not part of the project
+archive/
+archieve2/

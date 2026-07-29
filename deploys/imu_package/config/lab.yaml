@@ -1,0 +1,45 @@
+imu_preprocessor:
+  ros__parameters:
+    # D435i and D455 both publish their combined accel/gyro stream here via
+    # the racecar realsense launch. Check with `ros2 topic list` on the car;
+    # if the stream is on /imu instead, change only this line.
+    imu_input: /imu/realsense
+    imu_output: /imu/primary
+    frame_id: base_link
+
+    # camera_*_optical_frame (x right, y down, z forward) ->
+    # RACECAR body frame (x forward, y left, z up). det=+1.
+    # Verify against a tilt test: nose down => linear_acceleration.x < 0.
+    imu_rotation_body_from_sensor:
+      [0.0, 0.0, 1.0,
+       -1.0, 0.0, 0.0,
+       0.0, -1.0, 0.0]
+
+    # Stationary gyro-bias capture: hold the car still this long right after
+    # launch. still_std is the per-axis rad/s std that counts as "still".
+    bias_capture_sec: 2.0
+    # Measured on this car: stationary window-mean gyro std is ~0.032 rad/s on
+    # z (2 kHz stream noise floor) — 0.03 rejected forever by a 6% margin.
+    # 0.05 = 2.9 deg/s, still far below any real handling of the car.
+    bias_capture_still_std: 0.05
+
+    # Magnetometer path (needs a real hard/soft-iron calibration to be worth
+    # turning on; the bias-corrected gyro is better than an uncalibrated mag).
+    use_mag: false
+
+localizer_node:
+  ros__parameters:
+    # Where the car starts in the map frame at launch (and after a reset).
+    start_x: 0.0
+    start_y: 0.0
+    start_yaw: 0.0
+    # Fallback speed calibration: normalized /drive command -> m/s, piecewise
+    # linear (below the ESC dead zone it maps to 0). Used only when the wheel
+    # encoder is absent or dead. Re-measure on the real car if pose distances
+    # are systematically off with a dead encoder.
+    speed_cmd_points: [0.0, 0.42, 0.8, 1.0]
+    speed_mps_points: [0.0, 0.0, 1.686, 2.5]
+    # Along-track wheel-encoder scale: the wheel typically over-reads a few
+    # percent. Drive a taped >3 m straight and match /pose_estimate to the
+    # tape to set this.
+    encoder_scale: 0.96
