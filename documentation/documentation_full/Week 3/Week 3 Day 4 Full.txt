@@ -1,0 +1,31 @@
+Quest Log Day 9 — Speed Quest
+
+Overview
+
+We began the day by continuing the Speed Quest. Our same-day goal was to increase the car’s speed as far as possible, with speed 2.5 established as the minimum target. If we reached the highest practical level early or had only one official trial remaining, the plan was to pivot back to Quest Log work.
+
+Test Plan
+
+We planned to continue editing the new follow-the-gap wall follower because it appeared to perform better than the earlier controller at high speeds. If follow-the-gap did not provide reliable control, our backup plan was to implement a much simpler version of EATS. We intended to test each speed incrementally instead of immediately running the car at the highest speed.
+
+Testing and Results
+
+Most of the day’s success occurred near the beginning of testing. We moved through the speed increments efficiently and passed through speed 4.0 in six consecutive trials. This result exceeded our minimum goal of speed 2.5 and earned us five coins.
+
+After reaching speed 4.0, we encountered the high-speed control issue again. At this level, the controller was no longer reliable enough for us to continue progressing safely and consistently. Although the early trials had been very successful, the remaining testing time did not produce another major improvement at the higher speed.
+
+Quest Log Pivot
+
+Because the Speed Quest had already produced a strong result, we attempted to pivot back to the Quest Log. Our intention was to use the remaining time for continuous testing while waiting for another official trial. However, this plan did not work because the track was not prepared for the Quest Log tasks. The car was also still configured to run at the unusually high speed of 4.0, which was not appropriate for beginning the Quest Log testing. As a result, we could not collect useful Quest Log results during this session.
+
+Technical Direction
+
+Although the Quest Log trial did not occur, the day restarted our progress toward it. We now have a functioning wall follower that can operate at relatively high speeds. Our next priority is to complete and stabilize this wall-follower code so it can be used for the wall-following Quest Log task.
+
+Completing the wall follower will also support our later work on the IMU task because the IMU trial depends on the car being able to move reliably along the course. A stronger wall follower may also be useful during the Conga Line challenge. We should therefore continue tuning the controller, verify it at the lower Quest Log speeds, and only then connect it with the IMU algorithm.
+
+Conclusion and Next Steps
+
+We reached speed 4.0, completed six consecutive successful increments, and earned five coins. Our attempted transition to Quest Log work was unsuccessful because the necessary track was not prepared, but the improved wall follower provides a useful starting point for future tasks.
+
+Next, we plan to finish the wall follower, resume the related Quest Log trial, and then continue developing the IMU code. The earned coins may also allow us to purchase additional speed and continue progressing through later challenges.

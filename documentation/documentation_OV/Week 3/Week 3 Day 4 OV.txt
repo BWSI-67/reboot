@@ -1,0 +1,25 @@
+Quest Log Day 9 — Speed Quest
+
+Test Plan
+- Increase the Speed Quest level as far as possible
+- Pivot to Quest Log work if only one official trial remained
+- Continue improving the new follow-the-gap controller for high-speed driving
+- Try a simpler EATS-style controller if follow-the-gap was unsuccessful
+
+Goals
+- Reach at least speed 2.5
+- Return to Quest Log work if the Speed Quest finished early
+- Use the improved wall follower in later Quest Log and Conga Line work
+
+Results
+- Passed consecutive increments through speed 4.0
+- Earned five coins
+- Encountered high-speed control problems again at speed 4.0
+- Attempted to pivot to Quest Log work
+- Quest Log testing could not proceed because the track was not prepared
+
+Next Steps
+- Complete and tune the high-speed wall follower
+- Resume the wall-follower Quest Log task
+- Continue toward the IMU task after the wall follower is reliable
+- Use earned coins to purchase additional speed when appropriate
