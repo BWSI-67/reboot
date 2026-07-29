@@ -1,0 +1,27 @@
+Week 1, Day 1 — Racecar Overview
+
+- Session type: orientation and component-identification activity
+- Test plan: no physical racecar test conducted
+- Goals:
+  - Review battery and electrical safety
+  - Identify major Racecar subsystems
+  - Explain subsystem purposes within two minutes
+  - Prepare for upcoming labs using prerequisite material
+- Expected outcomes:
+  - Basic understanding of power, control, and sensing systems
+  - Safe handling of LiPo batteries
+  - Clear team communication under a time limit
+- Activities:
+  - Eight component stations led by teaching assistants
+  - Three two-minute station rotations per student
+  - Team knowledge-sharing and two-minute presentation
+- Results:
+  - Reviewed Raspberry Pi control system
+  - Reviewed LiPo battery and power system
+  - Identified Racecar sensors and their general functions
+  - Completed team presentation
+  - No code, sensor data, or driving results collected
+- Next steps:
+  - Review prerequisite lab and code
+  - Rebuild any missing prerequisite files
+  - Prepare for component setup and vehicle testing
