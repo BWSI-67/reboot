@@ -59,6 +59,8 @@ def update():
    global has_run
    while not has_run:
       image = rc.camera.get_color_image()
+      if image is None or image.size == 0:
+         return
       light = detect_light_color(image)
       if light == 'green':
          has_run = True
