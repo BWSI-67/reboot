@@ -1,10 +1,6 @@
 Week 1 Day 2 — Detailed Racecar Documentation
 
-Today, our coursework was getting more intense. We started the day with a recap of our presentation yesterday, our main lecture, and then forming our next groups. Then, the instructor gave us our homework and sent us to lunch. After lunch, we went back in to do a large physical activity, and after our activity, we finally started on our first project.
-
 The main lecture talked about how to describe systems in writing or graphics, and how to make these graphics descriptive enough so that another roboticist could look at them and immediately understand what was going on. The lecture was pretty fast and intense, and I made sure to write down detailed notes. These were things that I had never learned before, and the information would be important when documenting and explaining our Racecar systems.
-
-Then, we got into our groups. I was excited to be in this group because I was together with three people that I already knew before the course. Each person complemented the others in terms of ability and expertise, so we were able to work together and help each other understand the work.
 
 Chris then gave us our homework, and we were confused and surprised by its difficulty. The worksheets required us to implement and integrate our knowledge from the lecture. The good thing about BWSI is that it encouraged teamwork, so everyone in the class was allowed to work together without limit. We spent much of the day trying to understand the lecture that Chris gave in the morning and use it when answering the three-question worksheet. This showed us that the lecture itself was not always going to be enough to answer every question correctly and thoroughly, so we also needed to discuss ideas, review our notes, and learn from each other.
 
