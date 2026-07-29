@@ -1,0 +1,28 @@
+Quest Log Day 5 — Testing Overview
+
+- Main goal: test line-follower controllers
+- Controllers: bang-bang, PD, proportional, and single-setpoint proportional
+- Comparison goal: choose best controller; continue tuning its values
+- Additional test: wall-following controller
+
+- Testing Session 1: 20 runs
+- Result: all runs DNF
+- Best run: Line PD 7, Run 18
+- Best-run behavior: low oscillation; failure at curve
+- Main problems: line not sensed, oscillation, excessive steering, low speed, and hardware slipping
+- Decision: continue fixing and tuning PD controller
+
+- Testing Session 2: 15 runs
+- Result: all runs DNF
+- Main problems: camera/HSV detection, large error values, oscillation, setpoint response, and hardware slipping
+- Most useful observation: repeated Auto input temporarily allowed line detection
+- Possible issue: setpoint updated too slowly for the car to react
+
+- Data collection: Excel test table used instead of relying only on raw logs
+- Benefit: short explanation attached to each run; easier initial comparison
+- Limitation: footage review and manual data entry took too long
+- Storage issue: test footage used too much Google Drive space
+- Log issue: collected log data glitched and was lost
+
+- Next step: verify camera and HSV detection before further controller tuning
+- Continue PD testing after sensor input becomes reliable

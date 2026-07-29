@@ -1,0 +1,27 @@
+Quest Log Day 6 — Overview
+
+- Main goals:
+  - SLAM data collection and map creation
+  - New-car connection and calibration
+  - PD line-follower testing and adjustment
+  - Wall-follower fallback; target under 20 seconds
+
+- Test order:
+  - Test 1 — collect SLAM data; create map
+  - Test 2 — connect to Diana; collect more data; test line
+  - Test 3 — test PD line follower
+  - Test 4 — tune line follower; wall follower if line follower is not close
+
+- Testing limitations:
+  - Controller battery failure during first session
+  - Faulty PCB on Zeus
+  - Replacement car Diana requiring new value adjustments
+  - Code not uploaded correctly during later session
+  - Final testing session unavailable
+
+- Results:
+  - No reliable SLAM, line-follower, or wall-follower performance results
+  - Testing time consumed by hardware, battery, connection, and upload problems
+  - Replacement encoder obtained for upcoming IMU and SLAM labs
+
+
