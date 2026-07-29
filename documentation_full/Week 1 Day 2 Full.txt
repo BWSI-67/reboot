@@ -1,0 +1,19 @@
+Week 1 Day 2 — Detailed Racecar Documentation
+
+Today, our coursework was getting more intense. We started the day with a recap of our presentation yesterday, our main lecture, and then forming our next groups. Then, the instructor gave us our homework and sent us to lunch. After lunch, we went back in to do a large physical activity, and after our activity, we finally started on our first project.
+
+The main lecture talked about how to describe systems in writing or graphics, and how to make these graphics descriptive enough so that another roboticist could look at them and immediately understand what was going on. The lecture was pretty fast and intense, and I made sure to write down detailed notes. These were things that I had never learned before, and the information would be important when documenting and explaining our Racecar systems.
+
+Then, we got into our groups. I was excited to be in this group because I was together with three people that I already knew before the course. Each person complemented the others in terms of ability and expertise, so we were able to work together and help each other understand the work.
+
+Chris then gave us our homework, and we were confused and surprised by its difficulty. The worksheets required us to implement and integrate our knowledge from the lecture. The good thing about BWSI is that it encouraged teamwork, so everyone in the class was allowed to work together without limit. We spent much of the day trying to understand the lecture that Chris gave in the morning and use it when answering the three-question worksheet. This showed us that the lecture itself was not always going to be enough to answer every question correctly and thoroughly, so we also needed to discuss ideas, review our notes, and learn from each other.
+
+After lunch, we did an activity where we had to solve clues to hunt down “parts” of our Racecar around campus. There were a total of eight parts, and Chris expected all of us to finish in under an hour. None of the teams finished within that time, and the activity took about two hours instead. Even though our teamwork was really good, sometimes things just did not go the right way.
+
+After this activity, we went to work on our first lab. Initially, we were supposed to test the code a couple of times and do the final time trial on the same day. Because the activity took longer than expected, we had less time to work on the lab and had to postpone the final trial.
+
+This was the first time we worked with each other on a programming project. We gave everyone on our team roles, and I took the role of communication and team coordinator. I made sure that everyone had a chance to give their ideas and that everyone was coordinating and participating with the team. One technical problem was that my computer was not able to connect to the Wi-Fi, which made it harder for me to work directly on the programming setup.
+
+By the end of the day, we had started the first lab, organized our team roles, and identified how we would communicate during the project. We did not complete the final time trial, so it was postponed to a later session. Even at night, my teammates and I continued communicating and helping each other with the homework.
+
+Overall, I learned and retained information from the lecture pretty well and was able to give ideas and work alongside my teammates. Although some areas were not my expertise, I contributed to the team with what I was good at, and I observed and learned from the team in areas where I had less experience. This team dynamic was beneficial because it gave everyone an opportunity to share information and learn new information from each other.
