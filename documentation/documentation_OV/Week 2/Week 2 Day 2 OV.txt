@@ -1,0 +1,13 @@
+Quest Log Day 2 Overview
+
+- Role: team coordinator and communication support
+- Main goal: keep the team on track and following agreed team norms
+- Technical focus: further study of IMU and SLAM
+- Project task: preparation of an IMU algorithm prototype for future trials
+- Additional work: progress toward a wall-follower trial
+- Initial difficulty: team moving away from the original plan during stressful moments
+- Result: significant progress despite communication difficulties and disagreements
+- Wall follower: very close to being ready for a trial
+- Team outcome: discussion and reconciliation after class
+- Planning result: two-week schedule outlining each day’s focus and preparation for the following day
+- Next steps: continue IMU and SLAM research, develop the IMU prototype, and complete wall-follower testing

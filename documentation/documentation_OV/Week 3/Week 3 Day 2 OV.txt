@@ -1,0 +1,28 @@
+Quest Log Day 7 — Speed Quest
+
+Test Plan
+- Start with basic wall-follower code
+- Zwae — bang-bang controller
+- Oscar — follow-the-gap controller
+- Arya — PD controller
+- Compare controller performance
+- Use bang-bang only if reliable (KISS)
+
+Expectations
+- Minimum target speed — 1.0
+- Stretch target speed — 1.6
+- Reward target — 2 coins
+
+Results
+- Maximum achieved speed — 1.2
+- Reward earned — 1 coin
+- Speed Quest not fully completed
+- Testing to continue the following day
+
+Comments
+- Trials more difficult and time-consuming than expected
+- Improved rotation and testing schedule
+- More preparation time before entering testing area
+- Longer continuous testing time during assigned rotation
+- Fewer total trial opportunities due to waiting for other teams
+- Next focus — optimize preparation and testing efficiency

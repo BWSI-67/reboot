@@ -1,0 +1,21 @@
+Quest Log Day 4 — Wall Follower Trials
+
+- Goal: test bang-bang, PD, and single-setpoint proportional wall followers
+- Selection criteria: completion time, number of hits, consistency
+
+- Trial 1 expectation: compare all three controllers
+- Bang-bang: completed in 44 seconds; 1 hit
+- PD: DNF; a few hits
+- Single-setpoint proportional: DNF; a few hits
+- Decision: continue improving PD and proportional control; keep bang-bang as baseline
+
+- Trial 2 expectation: improved PD and proportional performance
+- Changes: tuned PD values; increased/decreased proportional setpoint
+- Single-setpoint proportional: completed in 29 seconds; 0 hits
+- PD: DNF; a few hits
+- Decision: continue with proportional control; keep PD as backup
+
+- Trial 3 expectation: validate proportional controller; test line follower if successful
+- Changes: adjusted controller values
+- Result: wall follower trial completed; 2 cc coins
+- Next step: continue to line-follower testing

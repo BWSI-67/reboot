@@ -1,0 +1,15 @@
+Quest Log Day 8 — Speed Quest
+
+- Goal: reach speed 2.5
+- Starting controller: bang-bang wall follower
+- Planned improvements: two additional side rays and other assisting techniques
+- Backup options: PD controller and follow-the-gap
+- Same-day testing: gradual speed increases and controller adjustments
+- Best result: speed 1.5
+- Reward: 1 coin
+- Main issue: wall collisions around speed 1.5
+- Bang-bang behavior: oscillation at lower speeds; increasing oscillation at higher speeds
+- Controller decision unresolved because of limited testing time
+- Next step: compare PD and follow-the-gap with the bang-bang baseline
+- Quest Log work postponed until Speed Quest completion
+- Updated Quest Log speeds requiring revised goals
