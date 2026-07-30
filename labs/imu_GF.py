@@ -1,10 +1,10 @@
-MAX_SPEED = 1.0
+MAX_SPEED, CRUISE = 1.0, 1.0   # ceiling, then the FRACTION of it to cruise at
 kP, KD_YAW = 1.1, 0.3
 TRIM = 0.04
 RANGE = 110        # lidar search window: left RANGE .. right RANGE
 
 angle = 0.0
-speed = MAX_SPEED
+speed = CRUISE
 yaw_rate = 0.0     # rad/s, + = LEFT (REP-103); stays 0 while the IMU is down
 
 import sys, time
@@ -59,7 +59,7 @@ def update():
     error = raw_gap / RANGE * 2
     # rc angle + = RIGHT but ROS yaw + = LEFT, so damping enters with a PLUS
     angle = float(np.clip(error * kP + KD_YAW * yaw_rate, -1.0, 1.0))
-    speed = MAX_SPEED
+    speed = CRUISE
     rc.drive.set_speed_angle(speed, rc_utils.clamp(angle + TRIM, -1.0, 1.0))
     print(f"gap {raw_gap:+6.1f} deg  yaw {np.degrees(yaw_rate):+6.1f} deg/s")
 

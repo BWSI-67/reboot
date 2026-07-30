@@ -1,11 +1,11 @@
-MAX_SPEED = 1.0
+MAX_SPEED, CRUISE = 1.0, 1.0   # ceiling, then the FRACTION of it to cruise at
 kP, kD = 0.5, 1.2
 HSV_MIN, HSV_MAX = (90, 80, 60), (120, 255, 255)  # blue; S>=80 rejects glare
 CROP_TOP, MIN_AREA = 360, 300   # bottom of the frame; tape ~1900 px at half
 TRIM, SLOW = 0.04, 0.8
 
 angle = 0.0
-speed = MAX_SPEED
+speed = CRUISE
 last_error = 0.0
 last_frame = None
 
@@ -59,7 +59,7 @@ def update():
     d_error = error - last_error   # one camera frame apart, so no dt math
     last_error = error
     angle = float(np.clip(error * kP + d_error * kD, -1.0, 1.0))
-    speed = max(0.4, MAX_SPEED * (1 - SLOW * abs(angle)))
+    speed = max(0.4, CRUISE - SLOW * abs(angle))
     rc.drive.set_speed_angle(speed, rc_utils.clamp(angle + TRIM, -1.0, 1.0))
     print(f"col {column:.0f}  error {error:+.2f}  angle {angle:+.2f}")
 

@@ -1,10 +1,10 @@
-MAX_SPEED = 1.0
+MAX_SPEED, CRUISE = 1.0, 1.0   # ceiling, then the FRACTION of it to cruise at
 kP, kD = 1.1, 0.02
 # lidar left RANGE, right RANGE
 RANGE = 110
 
 angle = 0.0
-speed = MAX_SPEED
+speed = CRUISE
 last_error = 0.0
 
 import sys
@@ -58,7 +58,7 @@ def update():
     d_error = (error - last_error) / dt if dt > 0 else 0.0
     last_error = error
     angle = float(np.clip(error * kP + d_error * kD, -1.0, 1.0))
-    speed = MAX_SPEED
+    speed = CRUISE
 
     rc.drive.set_speed_angle(speed, rc_utils.clamp(angle + 0.04, -1.0, 1.0))
     print(raw_gap)

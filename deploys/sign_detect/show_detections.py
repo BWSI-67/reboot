@@ -80,12 +80,20 @@ class MJPEGHandler(BaseHTTPRequestHandler):
 def frames_from_racecar():
     sys.path.insert(0, "../../library")
     import racecar_core
+    import rclpy
+
     rc = racecar_core.create_racecar(isSimulation=False)
+    # racecar_core only spins its executor inside rc.go(), and this tool never
+    # calls it — so pump the executor here or no ROS callback ever fires and the
+    # camera stays None forever. Same reason for the _async getter: the plain
+    # one returns the frame that rc's update loop promotes, and there is no
+    # update loop here.
+    executor = rclpy.get_global_executor()
     while True:
-        img = rc.camera.get_color_image()
+        executor.spin_once(timeout_sec=0.05)
+        img = rc.camera.get_color_image_async()
         if img is not None:
             yield img
-        time.sleep(0.01)
 
 
 def frames_from_capture(source):
