@@ -10,9 +10,21 @@ FRONT_CM, FRONT_ARC = 60, 12   # closer than this dead ahead: crawl, do not
 angle = 0.0
 side = ORANGE_SIDE     # which way to bias until a cone says otherwise
 last_frame = None
-import sys, time
+import sys
+import time
+from pathlib import Path
+
 import numpy as np
-sys.path.insert(0, "../../library")
+
+# cone_slalom_GF.py is in reboot/labs/
+REBOOT_ROOT = Path(__file__).resolve().parents[1]
+
+# RACECAR library is outside reboot.
+sys.path.insert(0, str(REBOOT_ROOT.parent / "library"))
+
+# cone_sight.py is in reboot/deploys/cone/
+sys.path.insert(0, str(REBOOT_ROOT / "deploys" / "cone"))
+
 import racecar_core
 import racecar_utils as rc_utils
 from cone_sight import nearest_cone, pick_gap   # same dir on the car
