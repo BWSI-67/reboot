@@ -12,11 +12,11 @@ import time
 
 import numpy as np
 
-sys.path.insert(0, "../../library")
+sys.path.insert(1, "../../library")
 import racecar_core
 import racecar_utils as rc_utils
 
-rc = racecar_core.create_racecar(isSimulation=False)
+rc = racecar_core.create_racecar(isSimulation=True)
 time.sleep(2)
 
 def findMaxW(scan, minA, maxA, window):
