@@ -1,8 +1,8 @@
 MAX_SPEED, CRUISE = 0.5, 0.7
-kP, kD, TRIM = 1.8, 0.4, 0.03
-STOP_HOLD_S, YIELD_SLOW_S, YIELD_FACTOR = 2.0, 3.0, 0.4   # MINIMUM hold
-CLEAR_S, MAX_HOLD_S = 0.4, 8.0   # resume this long after the sign leaves view,
-BRAKE, BRAKE_S = 0.4, 0.3        # but never hold past MAX_HOLD_S -- a sign the
+kP, kD, TRIM = 1.8, 0.4, 0.03 # Trim lessens drift
+STOP_HOLD_S, YIELD_SLOW_S, YIELD_FACTOR = 2.0, 3.0, 0.4   # Stop hold time, yield slow time, yield factor of slowing
+CLEAR_S, MAX_HOLD_S = 0.4, 8.0   # resume 0.4 after the sign leaves view, follow sign for a max 8 seconds
+BRAKE, BRAKE_S = 0.4, 0.3        # braking and how long to brake
 COOLDOWN_S, VOTE_N, NEED = 4.0, 9, 2.0      # car parks in front of never leaves
 TRIGGER_H, CONF = 0.22, 0.35  # full-weight distance; conf floor (see NEED)
 LIGHT_N, LIGHT_K, LIGHT_PX, RED_MAX_S = 7, 5, 150, 20.0   # wall light strips
