@@ -1,0 +1,12 @@
+{
+ "window_deg": 85.92956289570724,
+ "ray_width_deg": 28.65046870475465,
+ "weight_range_m": 2.986246936496351,
+ "kp": 0.04,
+ "half_width": 0.3428820846638152,
+ "a_brake": 12.0,
+ "a_lat": 16.0,
+ "wall_rep": 0.4,
+ "spd_scale": 0.55,
+ "u_floor": 0.7
+}
