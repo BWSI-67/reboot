@@ -21,7 +21,7 @@ imu_preprocessor:
     # Measured on this car: stationary window-mean gyro std is ~0.032 rad/s on
     # z (2 kHz stream noise floor) — 0.03 rejected forever by a 6% margin.
     # 0.05 = 2.9 deg/s, still far below any real handling of the car.
-    bias_capture_still_std: 0.05
+    bias_capture_still_std: 0.06
 
     # Magnetometer path (needs a real hard/soft-iron calibration to be worth
     # turning on; the bias-corrected gyro is better than an uncalibrated mag).

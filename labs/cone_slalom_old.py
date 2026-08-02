@@ -11,14 +11,14 @@ import cone_sight, so the main lab can keep evolving without touching this.
 """
 
 MAX_SPEED, CRUISE = 0.35, 0.8  # ceiling, then the FRACTION of it to cruise at
-kP, TRIM = 0.8, 0.04
+kP, TRIM = 0.87, 0.04
 ANGLE_MAX = 0.6                # hard steering ceiling: no situation (fallback
                                # centres included) is allowed to full-lock
 SLOW, SPEED_MIN = 0.7, 0.4     # shed speed with steering, floor as a FRACTION
 ORANGE_SIDE = 1                # +1 = pass ORANGE on its right, GREEN on its
                                # left; flip this one number to swap the course
 OPEN_CM, FOV, MIN_RUN = 150, 105, 16   # a run must be this wide to count, in deg
-MARGIN = 18                    # aim this many degrees past the cone-side edge
+MARGIN = 20                    # aim this many degrees past the cone-side edge
                                # of the chosen run, NOT at the run centre: a
                                # wide run's centre sits 60+ deg out and
                                # saturates the steering into a giant arc, a

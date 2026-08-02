@@ -56,16 +56,20 @@ CONE_M = np.abs(PHI) < math.radians(15.0)         # anti-stall cone
 
 # ----------------------------------------------------------- plant constants
 L = 0.225
-K_US = 0.20         # measured on-car 2026-07-31: dyn_check two-speed solve
-                     # gave K=0.191/0.202 with the steer table held fixed;
-                     # both points then fit within 2%. The 0.046 was the
-                     # July-20 fit on the old floor/tires.
+K_US = 0.77         # measured on-car 2026-08-01 (venue, re-provisioned car,
+                     # auto_calib PHASE=steer, gyro /imu/primary). Jointly fit
+                     # with the steer table below: low-speed steering is ~1.8x
+                     # the July-31 numbers, but at 2.5 m/s the effective yaw
+                     # per command is nearly unchanged (bigger delta offset by
+                     # bigger 1+K v^2).
 SPD_U = np.array([0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
 SPD_V = np.array([0.0, 1.94, 2.51, 3.0, 4.12, 4.5])
 STE_S = np.array([0.0, 0.25, 0.5, 1.0])
-STE_D = np.array([0.0, 0.162, 0.348, 0.369])
+STE_D = np.array([0.0, 0.43, 0.55, 0.79])   # 2026-08-01 venue calib; the 0.5
+                                             # cell failed its fit gate and is
+                                             # interpolated between neighbours
 SPEED_DELAY = 0.10
-STEER_DELAY = 0.12
+STEER_DELAY = 0.184   # venue calib 2026-08-01 (was 0.12)
 TAU_UP = 0.373
 TAU_DOWN = 0.247
 TAU_STEER = 0.10
@@ -133,7 +137,6 @@ def create_controller(params, seed):
 # student HUD shows) stays in the high band the driver asked for.
 SPD_SCALE = 1.0
 REP_LP = 0.35        # wall-repulsion low-pass blend per tick
-
 
 def _speed_map(u):
     return math.copysign(float(np.interp(abs(u) * SPD_SCALE, SPD_U, SPD_V)), u)
@@ -329,7 +332,10 @@ class WfLite:
         floor = V_CREEP * min(max((d_cone - CREEP_D0) / CREEP_SPAN, 0.0), 1.0)
         v_tgt = max(v_tgt, min(floor, V_MAX))
         if self.blind > BLIND_TRUST:            # dead-reckoning trust decay
-            v_tgt = min(v_tgt, max(0.9, V_MAX * BLIND_TRUST / self.blind))
+            # reference the ACHIEVABLE top speed, not the absolute V_MAX:
+            # under spd_scale the governor was never binding (4.0-based cap
+            # sat above the whole reachable band) and blind corners crashed.
+            v_tgt = min(v_tgt, max(0.9, _speed_map(1.0) * BLIND_TRUST / self.blind))
         if self.blind > BLIND_STOP:             # sensor is dead, not stale
             v_tgt = 0.0
 

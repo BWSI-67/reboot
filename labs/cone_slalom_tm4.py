@@ -11,24 +11,28 @@ import racecar_utils as rc_utils
 
 # --- Color detection ---
 GREEN_HSV = ((29, 79, 84), (86, 255, 255))
-RED_HSV = ((0, 120, 80), (10, 255, 255))
+# ORANGE cone (course uses orange, not red). H capped at 17: YELLOW_GLARE_HSV
+# starts at 18 and the glare mask would eat any orange pixels above it.
+RED_HSV = ((4, 130, 90), (17, 255, 255))
 WHITE_GLARE_HSV = ((0, 0, 230), (179, 80, 255))
 YELLOW_GLARE_HSV = ((18, 50, 50), (40, 255, 255))
-MIN_CONTOUR_AREA = 3000
+MIN_CONTOUR_AREA = 1000  # 10 ft (3 m) cone spacing: a cone at 3 m is only
+                         # ~700 px^2, so 3000 meant blind-driving until ~1.5 m;
+                         # 1000 acquires the next cone at ~2.5 m
 TOP_CROP_ROW = 100          # rows removed from the top of the frame
 
 # --- Camera steering ---
-KP = 0.0013
+KP = 0.0019
 GREEN_SETPOINT_FRACTION = 8 / 9
 RED_SETPOINT_FRACTION = 1 / 9
 GREEN_DEADBAND_X = 640      # was the literal 640 in the old green branch
 RED_DEADBAND_X = 40         # was the literal 40 in the old red branch
 
 # --- Open-loop return, applied after a cone leaves the frame ---
-PASS_THROUGH_TIME = 0.6     # s, drive straight first so the car clears the cone
-RETURN_RAMP_TIME = 0.5      # s, ease into the turn instead of snapping to it
-RETURN_ANGLE_AFTER_RED = -0.3    # negative = left
-RETURN_ANGLE_AFTER_GREEN = 0.3   # positive = right
+PASS_THROUGH_TIME = 0.35    # s, drive straight first so the car clears the cone
+RETURN_RAMP_TIME = 0.25     # s, ease into the turn instead of snapping to it
+RETURN_ANGLE_AFTER_RED = -0.45   # negative = left
+RETURN_ANGLE_AFTER_GREEN = 0.45  # positive = right
 
 SPEED = 0.45
 
@@ -152,6 +156,9 @@ def open_loop_return():
 
 def start():
     rc.drive.set_speed_angle(0, 0)
+    # library default caps max speed at 0.25 -- without this line every SPEED
+    # setting is quartered (same trap lab_h hit)
+    rc.drive.set_max_speed(0.5)
 
 
 def update():

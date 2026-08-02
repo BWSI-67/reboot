@@ -10,7 +10,7 @@ Settings come from the ENVIRONMENT, so redeploying never clobbers them:
     CHECK=0 VMAX=3.0 GYRO_SIGN=-1 ...          # if the gyro sign is inverted
     CTRL=wf_distill.py CHECK=0 VMAX=1.5 ...    # a different controller file
 
-CTRL names a controller file next to this script (default r180z_car.py). If a
+CTRL names a controller file next to this script (default wf_lite.py). If a
 matching <stem>_params.json exists there it is loaded, otherwise PARAM_SPEC
 defaults apply. VMAX caps the speed either through the controller's own
 "v_max" knob or, for controllers that fixed it as a module constant (V_MAX),
@@ -59,7 +59,7 @@ V_MAX_OVERRIDE = float(os.environ.get("VMAX", "1.5"))   # m/s cap
 import json
 
 _here = os.path.dirname(os.path.abspath(__file__))
-_ctrl_file = os.environ.get("CTRL", "r180z_car.py")
+_ctrl_file = os.environ.get("CTRL", "wf_lite.py")
 _ctrl_path = os.path.join(_here, _ctrl_file)
 _stem = os.path.splitext(os.path.basename(_ctrl_file))[0]
 _spec = importlib.util.spec_from_file_location(_stem, _ctrl_path)
@@ -106,8 +106,12 @@ try:
     from std_msgs.msg import Float32
     rc.physics.node.create_subscription(
         Float32, "/encoder/speed", _enc_cb, qos_profile_sensor_data)
+    # re-provisioned car 2026-08-01: /attitude is gone, raw IMU publishes on
+    # /imu/primary (same sensor_msgs/Imu, REP-103; bias NOT pre-removed, the
+    # controller's own bias tracker handles that). GYRO_TOPIC env overrides.
+    _gt = os.environ.get("GYRO_TOPIC", "/imu/primary")
     rc.physics.node.create_subscription(
-        Imu, "/attitude",
+        Imu, _gt,
         lambda m: GYRO.update(z=float(m.angular_velocity.z),
                               t=_time.monotonic()), qos_profile_sensor_data)
 except Exception:
