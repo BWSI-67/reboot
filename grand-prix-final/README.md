@@ -43,7 +43,7 @@ when they're alive; lidar is the only required sensor.
 **Scan carry-forward.** A repeated lidar frame is byte-identical, so it is
 detected and the last real point cloud is rigid-body warped into the predicted
 pose. Steering never looks at a stale frame. Blind travel over 1.8 m decays
-speed, over 3.0 m stops the car — that's a dead sensor, not a stale one.
+speed, over 3.0 m stops the car
 
 **Steering.** Windowed openness per bearing; take the most open bearing on each
 side, blend them by their openness difference, multiply by `kp`. Plus a 1/d
