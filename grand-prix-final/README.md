@@ -1,62 +1,103 @@
 # Grand Prix — final algorithm
 
-Everything the car actually raced with, and nothing else. Three files.
-
-| File | What it is |
-|---|---|
-| `race_deploy.py` | Entry point. Loads a controller + params from the environment, adapts the car's sensors to the controller contract, drives. |
-| `wf_lite.py` | The controller: lidar-only racer (model twin + scan carry-forward + ets steering). |
-| `wf_lite_finalloop_params.json` | The tuned parameters raced. |
+```
+run.sh                       launcher
+src/race_deploy.py           entry point: sensors -> controller -> drive
+src/wf_lite.py               controller: the tick, steering, speed law, wedge
+src/wf/plant.py              vehicle model (measured maps, lags, bicycle step)
+src/wf/scan.py               lidar geometry, scan warping, swept-arc length
+src/wf/tuning.py             constants + PARAM_SPEC
+config/wf_lite_finalloop_params.json    raced parameters
+```
 
 ## Run
 
 ```bash
-cd ~/jupyter_ws/team1/labs/racing
-PARAMS=wf_lite_finalloop_params.json CTRL=wf_lite.py CHECK=0 VMAX=4.0 python3 race_deploy.py
+bash run.sh              # race, VMAX=4.0
+VMAX=2.0 bash run.sh     # speed ladder on a new track
+CHECK=1 bash run.sh      # static sensor check, never drives
+bash run.sh -s           # simulator
 ```
 
-`CHECK=1` (the default) is a static sensor check that never drives — use it to
-confirm the lidar, gyro and encoder are alive before a run. Climb the speed
-ladder `VMAX = 1.5 → 2.0 → 2.5 → 3.0 → 4.0` on a new track.
+START launches, BACK reclaims manual.
 
-START launches, BACK reclaims manual control.
+Equivalent long form, if you'd rather type it out on the car:
 
-## Raced parameters
-
-```
-window_deg      85.93    steering search window, each side
-ray_width_deg   28.65    smoothing width of the openness average
-weight_range_m   2.99    how much a left/right openness difference steers
-kp              0.032    openness blend -> steering angle
-half_width      0.343    swath half-width for the braking law
-a_brake         12.0     how late to brake
-a_lat           16.0     how fast to corner
-wall_rep         0.4     1/d centring pull off the outside sweeps
+```bash
+cd src
+PARAMS=../config/wf_lite_finalloop_params.json CTRL=wf_lite.py \
+    CHECK=0 VMAX=4.0 python3 race_deploy.py
 ```
 
-Two module constants in `wf_lite.py` matter as much as the JSON and are not
-tunable knobs:
+## How it works
 
-- `SLEW = 0.20` — per-tick steering rate limit. At 0.13 the car was late both
-  turning in AND straightening out; the slow un-turn read as "it turns too
-  much".
-- `OPEN_M = 3.0` / `OPEN_DAMP = 0.35` — in open floor (nothing within 3 m
-  ahead) the steering is damped toward straight. Openness-following has no
-  gradient to track out there: every heading looks equally good, so the car
-  turns, re-evaluates, turns again, and circles in place at the anti-stall
-  creep speed. Damping makes it cross the open area and re-acquire a wall.
-  A real corner always has a near wall ahead, so cornering is untouched.
+The car's commands land 0.10-0.12 s late and the lidar only refreshes at 7 Hz,
+so what the car sees and what its next command acts on are different worlds.
+Four layers fix that:
 
-## Notes
+**Plant twin.** A replica of the car runs in software: delay buffers, measured
+throttle/steer maps, first-order lags, bicycle model with understeer. It always
+knows the pose the next command will execute in. Gyro and encoder correct it
+when they're alive; lidar is the only required sensor.
 
-- Lidar is the only required sensor. Gyro (`/attitude`) and wheel speed
-  (`/encoder/speed`) are used as corrections when present and sane, and
-  silently skipped otherwise — a dead IMU degrades cornering, it does not
-  stop the car.
-- `spd_scale` / `u_floor` exist in `PARAM_SPEC` but are deliberately absent
-  from the raced JSON, so both take their defaults (1.0 / 0.0 — full speed,
-  no throttle floor).
-- The camera is never touched. `racecar_core` subscribes to it lazily and
-  then decodes every 640x480 frame at 30 Hz inside the same executor that
-  spins the control loop, which costs loop rate for the rest of the run —
-  and `wf_lite`'s model twin steers badly on a jittery loop.
+**Scan carry-forward.** A repeated lidar frame is byte-identical, so it is
+detected and the last real point cloud is rigid-body warped into the predicted
+pose. Steering never looks at a stale frame. Blind travel over 1.8 m decays
+speed, over 3.0 m stops the car — that's a dead sensor, not a stale one.
+
+**Steering.** Windowed openness per bearing; take the most open bearing on each
+side, blend them by their openness difference, multiply by `kp`. Plus a 1/d
+wall repulsion that keeps the car off the outside sweeps.
+
+**Speed.** Sweep the planned arc through the point cloud to get a free length,
+then take the smaller of "can stop inside it" (`a_brake`) and "lateral accel
+stays under `a_lat`". An anti-stall floor keeps ~1.4 m/s while the front cone is
+open, because a stopped bicycle model cannot yaw at all.
+
+Wedge recovery reverses for 0.34 s if the front stays blocked for 0.5 s, then
+caps the steering window for 1.3 s so it doesn't U-turn out of the recovery.
+
+## Parameters
+
+```
+window_deg      85.93   steering search window each side
+ray_width_deg   28.65   smoothing width of the openness average
+weight_range_m   2.99   how much a left/right difference steers (bigger = straighter line)
+kp              0.032   openness blend -> steering
+half_width      0.343   braking swath half-width
+a_brake         12.0    how late to brake
+a_lat           16.0    how fast to corner
+wall_rep         0.4    centring pull
+```
+
+Three constants in `wf_lite.py` matter as much as the JSON:
+
+- `SLEW = 0.20` — steering rate limit. It caps turn-in *and* un-turn, so too
+  low reads as "turns too much" (it's really straightening out too slowly).
+- `OPEN_M = 3.0`, `OPEN_DAMP = 0.35` — open floor has no openness gradient, so
+  every heading looks equal and the car circles at the creep speed. Damping
+  toward straight makes it cross and re-acquire a wall. Real corners have a
+  near wall ahead, so they're unaffected.
+
+Tuning map: slow turn-in → `SLEW`; wrong steering amount → `kp`; line too wavy →
+`weight_range_m`; hits walls in corners → `a_lat`; slow on straights →
+`a_brake`; hugs walls → `wall_rep`; circles in place → `OPEN_DAMP`.
+
+`spd_scale` and `u_floor` exist in `PARAM_SPEC` but are absent from the raced
+JSON, so they default to full speed and no throttle floor.
+
+The camera is never touched: `racecar_core` subscribes lazily and then decodes
+every frame at 30 Hz inside the control loop's executor, and the twin steers
+badly on a jittery loop.
+
+## Deploying to the car
+
+The car's directory is flat, so copy the two source files and the JSON into it:
+
+```bash
+scp -o ProxyJump=jetson@10.1.14.5 src/*.py config/*.json \
+    racecar@10.42.0.1:~/jupyter_ws/team1/labs/racing/
+```
+
+Then on the car the long form applies with `PARAMS=wf_lite_finalloop_params.json`
+(same directory, no `../config`).
