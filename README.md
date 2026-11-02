@@ -81,7 +81,7 @@ Connect your computer to the RACECAR's Wi-Fi network:
 
 ```text
 SSID: racecar-neo-(__)
-Password: racecar@mit
+Password: ask your instructor
 ```
 
 Replace `(__)` with your team's number.
@@ -121,11 +121,7 @@ Run:
 racecar setup
 ```
 
-When asked for the password, enter:
-
-```text
-racecar@mit
-```
+When asked for the password, enter the car's password (ask your instructor).
 
 ### 4 | Open Jupyter Notebook
 
